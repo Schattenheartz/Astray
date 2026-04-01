@@ -1,5 +1,5 @@
 /* GOOGLE FONTS */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500&display=swap");
 
 /* VARIABLES CSS*/
 :root {
@@ -260,11 +260,6 @@ a {
     display: flex;
     align-items: center;
     column-gap: 3.5rem;
-  }
-
-  .nav__item {
-    transform: translateX(0); /* Los devuelve a su posición original */
-    visibility: visible;      /* Los hace visibles de nuevo */
   }
 
 }

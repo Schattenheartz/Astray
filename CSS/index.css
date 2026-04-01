@@ -222,7 +222,7 @@ a {
 }
 
 /* Animation link when displaying menu */
-.show-menu .nav__link {
+.show-menu .nav__item {
     visibility: visible;
     transform: translateX(0);
 }
@@ -266,5 +266,5 @@ a {
     transform: translateX(0); /* Los devuelve a su posición original */
     visibility: visible;      /* Los hace visibles de nuevo */
   }
-  
+
 }

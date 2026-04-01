@@ -1,265 +1,240 @@
-/* GOOGLE FONTS */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500&display=swap");
-
-/* VARIABLES CSS*/
+/* Variables y Tipografia */
+/* Define los valores reutilizables como colores, fuentes y tamaños en todo el documento */
 :root {
   --header-height: 3.5rem;
-
-  /* Colors */
-  /* Color mode HSL(hue, saturation, lightness) */
   --white-color: hsl(0, 0%, 100%);
   --black-color: hsl(0, 0%, 0%);
-
-  /* Font and Typography */
-  /*.5rem = 8px | 1rem = 16px ...*/
-  --body-font: "Montserrat Alternates", sans-serif;
+  
+  /* Fuente principal configurada a Century Gothic Regular con respaldos de sistema */
+  --body-font: "Century Gothic", AppleGothic, sans-serif;
+  
   --h1-font-size: 1.5rem;
   --normal-font-size: .938rem;
-
-  /* Font weight */
-  --font-regular: 400;
-  --font-medium: 500;
-
-  /* z index */
-  --z-tooltip: 10;
-  --z-fixed: 100;
+  --z-fixed: 100; /* Asegura que la barra siempre este por encima de otros elementos */
 }
 
-/* Responsive Typography */
+/* Ajuste de Tamaño de Fuente para Pantallas Grandes */
+/* Aumenta el tamaño del texto base cuando la pantalla es mayor a 1150px */
 @media screen and (min-width: 1150px) {
-  :root {
-    --normal-font-size: 1rem;
-  }
+  :root { --normal-font-size: 1rem; }
 }
 
-/* BASE */
+/* Estilos Base */
+/* Configuracion inicial para eliminar margenes por defecto y definir el modelo de caja */
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
   background-color: var(--white-color);
+  font-weight: normal; 
 }
 
-ul {
-  list-style: none;
-}
+ul { list-style: none; } /* Quita los puntos de las listas */
+a { text-decoration: none; } /* Quita el subrayado de los enlaces */
 
-a {
-  text-decoration: none;
-}
-
-/* REUSABLE CSS CLASSES */
+/* Contenedor Principal para Centrar Contenido */
+/* Limita el ancho del contenido y lo centra horizontalmente en la pantalla */
 .container {
   max-width: 1120px;
   margin-inline: 1.5rem;
 }
 
-/* HEADER & NAV*/
+/* Barra de Navegacion (HEADER) */
+/* Mantiene la barra negra fija en la parte superior durante el scroll */
 .header {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-color: var(--black-color);
-    z-index: var(--z-fixed);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--black-color);
+  z-index: var(--z-fixed);
 }
 
+/* Estructura Flex de la nav */
+/* Alinea el logo, el menu y los iconos en una sola linea con espacio entre ellos */
 .nav {
-    position: relative;
-    height: var(--header-height);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  position: relative;
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+/* Estilo del Logotipo */
 .nav__logo {
-    color: var(--white-color);
-    font-weight: var(--font-medium);
+  color: var(--white-color);
+  font-weight: normal;
 }
 
-.nav__close, 
-.nav__toggle {
+/* Menu Movil */
+/* Define como se comporta el menu en pantallas pequeñas (celulares) */
+@media screen and (max-width: 1150px) {
+  /* Oculta los iconos que solo deben verse en computadora */
+  .nav__actions-desktop {
+    display: none;
+  }
+
+  /* Panel Lateral del Menu */
+  /* Crea el panel negro que aparece desde la izquierda (-100%) al activar el menu */
+  .nav__menu {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    background-color: var(--black-color);
+    width: 100%;
+    height: 100%;
+    padding: 6rem 3.5rem 4.5rem;
     display: flex;
-    color: var(--white-color);
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-/* Navigation for Mobile Devices*/
-@media screen and (max-width: 1150px){
-    .nav__menu{
-        position: fixed;
-        left: -100%;
-        top: 0;
-        background-color: var(--black-color);
-        width: 100%;
-        height: 100%;
-        padding: 6rem 3.5rem 4.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        transition: left .4s;
-    }
-
-    .nav__item {
-        transform: translateX(-150px);
-        visibility: hidden;
-        transition: transform .4s ease-out, visibility .4s;
-    }
-
-    .nav__item:nth-child(1) {
-        transition-delay: .1s;
-    }
-    .nav__item:nth-child(2) {
-        transition-delay: .2s;
-    }
-    .nav__item:nth-child(3) {
-        transition-delay: .3s;
-    }
-    .nav__item:nth-child(4) {
-        transition-delay: .4s;
-    }
-    .nav__item:nth-child(5) {
-        transition-delay: .5s;
-    }
-}
-
-.nav__list,
-.nav__social {
-    display: flex;
-}
-
-.nav__list {
     flex-direction: column;
-    row-gap: 3rem;
-}
+    justify-content: space-between;
+    transition: left .4s; /* Suaviza el movimiento de aparicion del menu */
+  }
 
-.nav__link {
-    position: relative;
-    color: var(--white-color);
-    font-size: var(--h1-font-size);
-    font-weight: var(--font-medium);
-    display: inline-flex;
+  /* Estilos para los Items de Perfil y Compras en Movil */
+  .nav__item-mobile .nav__link {
+    display: flex;
     align-items: center;
-    transition: opacity .4s;
+    column-gap: .75rem;
+  }
+
+  .nav__item-mobile i {
+    font-size: 1.5rem;
+    color: var(--white-color);
+  }
 }
 
-.nav__link i {
-    font-size: 2rem;
-    position: absolute;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .4s, visibility .4s;
+/* Configuracion de la Lista de Enlaces */
+.nav__list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.5rem;
 }
 
+/* Enlaces de Navegacion */
+.nav__link {
+  color: var(--white-color);
+  font-size: var(--h1-font-size);
+  transition: opacity .4s;
+}
+
+/* Linea Animada Decorativa */
+/* Crea el efecto de subrayado que crece cuando pasas el raton sobre un enlace */
 .nav__link span {
-    position: relative;
-    transition: margin .4s;
+  position: relative;
 }
 
 .nav__link span::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 0;
-    height: 2px;
-    background-color: var(--white-color);
-    transition: width .4s ease-out;
-}
-
-/* Animation Link on Hover*/
-.nav__link:hover span {
-    margin-left: 2.5rem;
-}
-
-.nav__link:hover i {
-    opacity: 1;
-    visibility: visible;
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background-color: var(--white-color);
+  transition: width .4s ease-out;
 }
 
 .nav__link:hover span::after {
-    width: 100%;
+  width: 100%;
 }
 
-/* Sibling Fade Animation */
-.nav__list:has(.nav__link:hover) .nav__link:not(:hover) {
-    opacity: .4;
+/* Iconos de Interaccion Movil */
+.nav__toggle, .nav__close {
+  display: flex;
+  color: var(--white-color);
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
-.nav__close{
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
+.nav__close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
 }
 
-.nav__social{
-    column-gap: 1rem;
+/* Iconos de Redes Sociales */
+.nav__social {
+  display: flex;
+  column-gap: 1.5rem;
 }
 
 .nav__social-link {
-    color: var(--white-color);
-    font-size: 1.5rem;
-    transition: transform .4s;
+  color: var(--white-color);
+  font-size: 1.5rem;
 }
 
-.nav__social-link:hover {
-    transform: translateY(-.25rem);
-}
+/* Mostrar Menu Mediante JS */
+/* Clase que activa el JavaScript para traer el menu al frente (posicion 0) */
+.show-menu { left: 0; }
 
-/* Show Menu */
-.show-menu {
-    left: 0;
-}
-
-/* Animation link when displaying menu */
-.show-menu .nav__item {
-    visibility: visible;
-    transform: translateX(0);
-}
-
-/* BREAKPOINTS */
-/* For Large Devices*/
+/* Configuracion Escritorio (PC) */
+/* Ajusta el diseño para pantallas grandes, centrando los enlaces y mostrando iconos laterales */
 @media screen and (min-width: 1150px) {
-  .container {
-    margin-inline: auto;
-  }
+  .container { margin-inline: auto; }
 
   .nav {
     height: calc(var(--header-height) + 2rem);
+    display: flex;
   }
 
-  .nav__toggle, 
-  .nav__close {
-    display: none;
+  /* Bloque Izquierdo: Logo */
+  .nav__logo-box {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  /* Bloque Central: Enlaces Centrados */
+  /* Divide el espacio para que 'Inicio', 'Menu', etc. queden exactamente al centro */
+  .nav__menu {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav__list {
+    flex-direction: row; /* Cambia la lista de vertical a horizontal */
+    column-gap: 4rem;
   }
 
   .nav__link {
     font-size: var(--normal-font-size);
   }
 
-  .nav__link i {
-    font-size: 1.5rem;
-  }
-
-  .nav__list {
-    flex-direction: row;
-    column-gap: 3.5rem;
-  }
-
-  .nav__menu {
+  /* Bloque Derecho: Iconos de Usuario y Carrito */
+  .nav__actions {
+    flex: 1;
     display: flex;
-    align-items: center;
-    column-gap: 3.5rem;
+    justify-content: flex-end;
+    column-gap: 1.5rem;
   }
 
+  .nav__actions-desktop {
+    display: flex;
+    column-gap: 1.5rem;
+  }
+
+  .nav__add-action {
+    color: var(--white-color);
+    font-size: 1.3rem;
+    display: flex;
+    transition: transform .3s;
+  }
+
+  /* Efecto de agrandamiento al pasar el raton sobre los iconos */
+  .nav__add-action:hover { transform: scale(1.2); }
+
+  /* Elementos Ocultos en Version PC */
+  /* Esconde los botones de cerrar, abrir y redes que solo pertenecen al diseño movil */
+  .nav__item-mobile,
+  .nav__toggle,
+  .nav__close,
+  .nav__social {
+    display: none;
+  }
 }
